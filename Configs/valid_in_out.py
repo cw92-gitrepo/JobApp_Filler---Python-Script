@@ -1,3 +1,3 @@
 class valid_in_out:
-    sites = []
+    portals = []
     file_types = []
