@@ -1,6 +1,6 @@
 from config import config
 
-
+##########REFRACTOR TO USE JSON. THIS IMPLIMENTATION IS BAD
 class Prompts:
 
     #Initializes a prompt hashmap from the prompts file in config that hashes promptname to prompts
