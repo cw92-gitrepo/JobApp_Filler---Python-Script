@@ -1,24 +1,36 @@
-import re
+import json
+from dataclasses import dataclass
 
 
-class Config:
+@dataclass
+class Processing_Config:
+    readers: dict{str, str}
+    writers: dict{str,str}
 
-    #Initializes a config hashmap from the config.txt file that hashes config to config setting
-    def __init__(self):
-        file = "config.txt"
-        self.configs = {}
-        with open(file, "r") as s:
+    def __post_init__(self) -> None:
+        #initializes a dictionary for readers and one for writers to pass to registry for creating the proper read/write class
+        for name, pair in (("readers", self.readers), ("writers", self.writers)):
+            if not isinstance(pair, dict) or not pair:
+                raise ValueError(f"Config section '{name}' must be a non-empty object.")
 
-            #Cleans the line read from the config.txt file if it's a config section header to be a a lowercase string
-            regex = re.compile('[^a-zA-Z_]') 
-            text = s.readline
-            if not text[0] =='(':
-                self.configs = {regex.sub('',text).lower()}
-            self.configs[text] = s.readline
+    @classmethod
 
-    #Returns config settings given the appropiate config name
-    def get(self,config):
-        return self.configs[config]
+    #opens the config json file and assigns the appropriate file type class call pairs the initialized dictionaries
+    def from_file(cls, path: str) -> "Processing_Config":
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            raise ValueError(f"Config file not found: {path}")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Config file is not valid JSON: {e}") from e
 
-#Creates a singleton class on import
-config = Config()
+        missing = {"readers", "writers"} - data.keys()
+        if missing:
+            raise ValueError(f"Config is missing sections: {missing}")
+
+        return cls(readers=data["readers"], writers=data["writers"])
+
+
+
+
