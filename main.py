@@ -1,4 +1,5 @@
 from ui import user_prompt
+import config
 import switcher
 
 
@@ -9,6 +10,9 @@ import switcher
 #call switcher(file path, portal)
 ##determines what reader to call then calls and passes (file path) to it
 ##determines what writer to call using portal_detector() then passes (resume) to it
+
+script_config = config()
+
 usr_portal = portal_detector()
 usr_file_type = file_detector()
 

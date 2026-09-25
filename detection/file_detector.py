@@ -1,24 +1,24 @@
 from prompts import prompt
-import traceback
 
 class file_detector:
 
     def __init__(self):
+        file = "filetypes.txt"
         self.types = {}
+        with open(file, "r") as s:
+            key = s.readline.split()
+            self.types[key] = s.readline
 
     def get_types(self,file):
-        types = {}
+        self.types = {}
         try: 
-            with open(file, "r") as s:
-                pair = s.readline.split()
-                types[pair[0]] = [pair[1]]
-            self.types = types
+            
         except:
-             prompt.invalidfile("get_typess")
+             prompt.get("err_filetype")
     
     def detect_type(self, file):
         try:
             extension = file.split('.')[-1]
             return self.types[extension]
         except:
-            prompt.invalid()
+            prompt.get("err_filetype")
