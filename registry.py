@@ -1,14 +1,15 @@
+from typing import Callable
 import importlib
 
 
 
 class Registry:
-    #initializes the registry dictionary and creates string normalizing callable
+    #initializes the registry lookup table and after cleaning key value pairs through a normalize function
     def __init__(self, mapping: dict[str, str], base_class: type) -> None:
         self._mapping = {self._normalize(s): c for s, c in mapping.items()}
         self._base_class = base_class
 
-    #the actual normalizing method used by callable ._mapping
+    #string cleaning method
     @staticmethod
     def _normalize(key: str) -> str:
         return key.strip().lower().lstrip(".")
@@ -17,22 +18,33 @@ class Registry:
     def available(self) -> list[str]:
         return sorted(self._mapping)
 
-    #creates an object through passing a string as a value and returning the values key 
+    Rule = Callable[[str], None]
+    class validator():
+
+   
+        def __init__(self, sanitize: Callable[[str], str], rules: list[Rule]) ->None:
+            self._sanitize = sanitize
+            self._rules = rules
+            return None
+
+        def validate_str(self, str) -> str:
+            pass
+
+            #TODO: Finish implementation of method to validate and clean strings given input
+            
+            
+
+
+
+
+    # creates an object through passing in an import string to call up the module path and module's class and then
+    # creating a new object from that class
     def create(self, key: str):
         normalized = self._normalize(key)
         if normalized not in self._mapping:
             raise ValueError(
-                f"Unknown option '{key}'. Choose from: {', '.join(self.available())}"
-            )
+                f"Unknown option '{key}'. Choose from: {', '.join(self.available())}")
         
-    #returns the class type given a string
-    def get_class(self, key: str):
-        normalized = self._normalize(key)
-        if normalized not in self._mapping:
-            raise ValueError(
-                f"Unknown option '{key}'. Choose from: {', '.join(self.available())}"
-            )
-
         target = self._mapping[normalized]
         module_path, _, class_name = target.rpartition(".")
         try:
@@ -45,3 +57,15 @@ class Registry:
             raise TypeError(f"'{target}' is not a subclass of {self._base_class.__name__}")
 
         return cls()
+        
+    #returns the class type given a string
+    #TODO: finish this getter along side other relevant getters
+    def get_class(self, key: str):
+        normalized = self._normalize(key)
+        if normalized not in self._mapping:
+            raise ValueError(
+                f"Unknown option '{key}'. Choose from: {', '.join(self.available())}"
+            )
+        pass
+        return 
+        
