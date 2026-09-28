@@ -1,0 +1,6 @@
+TODO:
+
+Create a GUI for user input
+Create another registry lookup table that keeps track of validation methods for reading/writing.
+Move validation call to only be in the GUI class to avoid unecessary calls down the stack
+Determine implementation of portal_detector and writers

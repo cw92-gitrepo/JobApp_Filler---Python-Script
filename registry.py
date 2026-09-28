@@ -66,6 +66,5 @@ class Registry:
             raise ValueError(
                 f"Unknown option '{key}'. Choose from: {', '.join(self.available())}"
             )
-        pass
-        return 
+        return self._base_class
         
