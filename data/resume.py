@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from datetime import date
 
 #Data class that holds all relevant information in a resume for the writer to pull from. 
-#Data is pulled up through the reader, passed to the formatter, then input here.
+#Data is pulled up through the reader, formatted by the reader, then input here.
 
 @dataclass
 class Resume:
