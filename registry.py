@@ -39,7 +39,7 @@ class Registry:
 
     # creates an object through passing in an import string to call up the module path and module's class and then
     # creating a new object from that class
-    def create(self, key: str):
+    def create_class(self, key: str):
         normalized = self._normalize(key)
         if normalized not in self._mapping:
             raise ValueError(
@@ -66,5 +66,7 @@ class Registry:
             raise ValueError(
                 f"Unknown option '{key}'. Choose from: {', '.join(self.available())}"
             )
-        return self._base_class
-        
+        pass
+        return 
+
+    def create_extensions_list(self, key: str)
