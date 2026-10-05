@@ -5,8 +5,23 @@ from input_window import Input_window
 from readers.base_reader import Reader
 from writers.base_writer import Writer
 
-config = Processing_Config.from_file("config.json")
-input_window = Input_window()
+
+
+#TODO: Implement portal detection logic
+
+def portal_detector():
+    pass
+
+window = Input_window()
+window.run
+
+filepath = window.filepath()
+extension = filepath.rfind()
+reader = readers.create(filepath)
+
+
+
+
 
 readers = Registry(config.readers, Reader)
 writers = Registry(config.writers, Writer)
