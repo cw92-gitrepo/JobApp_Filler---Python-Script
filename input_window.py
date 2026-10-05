@@ -1,3 +1,4 @@
+#TODO: Refractor to have a cleaner interface and add method to store filepath to a "filepath" data member
 
 import tkinter as tk
 from tkinter import messagebox

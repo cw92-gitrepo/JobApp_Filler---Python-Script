@@ -1,7 +1,7 @@
 from typing import Callable
 import importlib
 
-
+#TODO: Refractor to use a dictionary of dictionaries instead of just single key value pairs. Use dictionaries of dictionaries so that Readers and Writers can be called distinctly and seperately without having to create additional logic.
 
 class Registry:
     #initializes the registry lookup table and after cleaning key value pairs through a normalize function

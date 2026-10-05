@@ -7,3 +7,5 @@ class Reader(ABC):
     def read_from_file(file):
         pass
 
+
+#TODO: add get_contents method
