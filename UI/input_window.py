@@ -3,6 +3,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
+from playwright.sync_api import sync_playwright
 
 
 class Input_window():

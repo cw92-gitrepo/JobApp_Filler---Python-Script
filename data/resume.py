@@ -55,5 +55,3 @@ class Resume:
     gen_info: UserGeneral = field(default_factory=UserGeneral)
     employment_history: list[Employment] = field(default_factory=list)
     education_history: list[Education] = field(default_factory=list)
-
-

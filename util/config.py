@@ -3,9 +3,10 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Processing_Config:
-    readers: dict{str, str}
-    writers: dict{str,str}
+class JobApp_config:
+    readers: dict[str, str]
+    writers: dict[str,str]
+    portals: dict[str,str]
 
     def __post_init__(self) -> None:
         #initializes a dictionary for readers and one for writers to pass to registry for creating the proper read/write class
@@ -16,7 +17,7 @@ class Processing_Config:
     @classmethod
 
     #opens the config json file and assigns the appropriate file type class call pairs the initialized dictionaries
-    def from_file(cls, path: str) -> "Processing_Config":
+    def from_file(cls, path: str) -> "JobApp_config":
         try:
             with open(path, encoding="utf-8") as f:
                 data = json.load(f)
@@ -25,11 +26,11 @@ class Processing_Config:
         except json.JSONDecodeError as e:
             raise ValueError(f"Config file is not valid JSON: {e}") from e
 
-        missing = {"readers", "writers"} - data.keys()
+        missing = {"readers", "writers", "portals"} - data.keys()
         if missing:
             raise ValueError(f"Config is missing sections: {missing}")
 
-        return cls(readers=data["readers"], writers=data["writers"])
+        return cls(readers=data["readers"], writers=data["writers"], portals=data["portals"])
 
 
 

@@ -1,11 +1,14 @@
-from config import config
+import csv
+from pathlib import Path
+from base_reader import Reader
 
+class Csv_reader(Reader):
 
-
-class Csv_reader():
-
-    def read_from_file(self, file):
-
+    def read_from_file(self, path:Path):
+        self.file_check(path)
+        with path.open(newline="", encoding = "utf-8-sig") as f:
+            reader = csv.reader(f)
+            reader = csv.DictReader(f)
 
         pass
 

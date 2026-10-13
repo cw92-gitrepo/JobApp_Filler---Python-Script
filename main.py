@@ -1,18 +1,22 @@
 # main.py
 import pathlib
-from config import Processing_Config
-from registry import Registry
-from input_window import Input_window
+from util.config import JobApp_config as config
+from util.registry import Registry
+from UI.input_window import Input_window
 from readers.base_reader import Reader
 from writers.base_writer import Writer
 
+
 readers = Registry(config.readers, Reader)
 writers = Registry(config.writers, Writer)
+portals = Registry(config.portals, Portals)
 
 #TODO: Implement portal detection logic
 
+
 def portal_detector():
-    pass
+    
+    
 
 #TODO: Add comments. Got cutoff by work.
 portal = portal_detector()
