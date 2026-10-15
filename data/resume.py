@@ -35,7 +35,7 @@ class Resume:
         location : str
         start_date : date
         end_date : date | None = None
-        responsibilities : list[str] = field(default_factory=list)
+        responsibilities : str | None = None
         supervisor : str | None = None
         supervisor_contact : str | None = None
 
