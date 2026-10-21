@@ -1,26 +1,51 @@
-"""Error types shared by every part of the program."""
+"""The app's own exceptions.
+
+Lower layers (readers, writers, browser) raise these; main.py catches AppError
+and the GUI shows `title` and the message in a popup. Nothing here imports the
+GUI or the logic, so both can import it.
+
+    AppError
+    ├── BrowserNotFoundError   Chrome isn't reachable on the debugging port
+    ├── PortalNotFoundError    no open tab is on a supported portal
+    ├── UnsupportedFileError   no reader for this file extension
+    ├── ResumeDataError        the file opened, but a value is missing or wrong
+    ├── ConfigError            a saved portal config can't be used
+    ├── FillError              the portal page didn't behave as the writer expected
+    └── PluginError            a reader/writer module exists but is broken
+"""
 
 
-class ResumeAppError(Exception):
-    """Base class for expected, user-facing problems."""
+class AppError(Exception):
     title = "Something went wrong"
 
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        self.message = message
 
-class ResumeFormatError(ResumeAppError):
-    """The resume file exists but its contents can't be used."""
-    title = "Problem with resume file"
+
+class BrowserNotFoundError(AppError):
+    title = "Chrome not reachable"
 
 
-class UnsupportedFileTypeError(ResumeAppError):
-    """No reader is registered for the chosen file type."""
+class PortalNotFoundError(AppError):
+    title = "No job application tab"
+
+
+class UnsupportedFileError(AppError):
     title = "Unsupported file type"
 
 
-class BrowserConnectionError(ResumeAppError):
-    """Chrome isn't running with remote debugging, or the connection failed."""
-    title = "Can't reach Chrome"
+class ResumeDataError(AppError):
+    title = "Problem in the resume file"
 
 
-class UnsupportedPortalError(ResumeAppError):
-    """No open tab is on a supported job portal."""
-    title = "No supported portal found"
+class ConfigError(AppError):
+    title = "Problem with the saved config"
+
+
+class FillError(AppError):
+    title = "Couldn't fill the application"
+
+
+class PluginError(AppError):
+    title = "Broken reader or writer"

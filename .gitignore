@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.spec
+
+# Never commit personal data or browser state
+chrome-profile/
+*.real.xlsx
+my_resume*.xlsx
+
+# Saved portal answers (personal)
+configs/
